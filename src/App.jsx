@@ -28,26 +28,30 @@ export function App() {
         <div className="categories options">
           <h2 className="title">Categories</h2>
           {/* YOUR CODE HERE */}
+          <p className="instructions">{}</p>
         </div>
       </div>
 
       {/* MAIN COLUMN */}
       <div className="container">
         {/* HEADER GOES HERE */}
+        <h1 className="header">{appInfo.title}</h1>
+        <p className="tagline">{appInfo.tagline}</p>
+        <p className="descrip">{appInfo.description}</p>
 
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">{/* YOUR CODE HERE*/}</div>
         </div>
 
         {/* INSTRUCTIONS GO HERE */}
+        <p className="instructions">{appInfo.instructions.start}</p>
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
-            {/* YOUR CODE HERE */}
           </div>
 
           {/* NUTRITION FACTS */}
