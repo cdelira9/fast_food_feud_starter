@@ -43,6 +43,8 @@ var currentMenuItems = data.filter((restaurant) => {
   return (restaurant.food_category == selectCategory && restaurant.restaurant == selectRestaurant)
 })
 
+
+
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
@@ -92,9 +94,10 @@ var currentMenuItems = data.filter((restaurant) => {
             <h2 className="title">Menu Items</h2>
               {
                currentMenuItems.map((items, idx) => {
-                  <Chip key={idx} label={items.item_name} isActive={items === selectedItem} iClick ={
+                return(
+                  <Chip key={idx} label={items.item_name} isActive={selectedItem && selectedItem.item_name == items.item_name} iClick ={
                    () => {handleClickForItems(items)}
-                 }/>
+                 }/>)
                 })
               }
           </div>

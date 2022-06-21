@@ -4,17 +4,16 @@ import { nutritionFacts } from "../../constants"
 import "./NutritionalLabel.css"
 
 export function NutritionalLabel(props) {
-  useEffect(() => {console.log(props)}, []);
   return (
     <div className="nutritional-label">
       <h3 className="title">Nutrition Facts</h3>
 
-      <h4 className="item-name">{props.item_name}</h4>
+      <h4 className="item-name">{props.item.item_name}</h4>
 
       <ul className="fact-list">{
-        nutritionFacts.map((list, idx) => (
-          <NutritionalLabelFact item={props.item} elem={list} key={list.id} att={list.attribute} label={list.label}/>
-        ))
+        nutritionFacts.map(
+          (itemFact, idx) => (<NutritionalLabelFact item={props.item} elem={itemFact} key={itemFact.id} label={itemFact.label} att={itemFact.attribute}/>)
+        )
       }</ul>
     </div>
   )
