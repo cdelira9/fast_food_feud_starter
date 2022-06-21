@@ -5,7 +5,8 @@ import "./App.css"
 import Header from "./components/Header/Header.jsx"
 import Instructions from "./components/Instructions/Instructions.jsx"
 import Chip from "./components/Chip/Chip.jsx"
-import "./components/NutritionalLabel/NutritionalLabel.jsx"
+import NutritionalLabel from "./components/NutritionalLabel/NutritionalLabel.jsx"
+import { nutritionFacts } from "./constants"
 
 // don't move this!
 export const appInfo = {
@@ -25,13 +26,23 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
-  const [selecOne, selecTwo] = React.useState(null);
- function categoryClicked(category){
-    selecTwo(category);
+  const [selectCategory, setCategory] = React.useState(null);
+  const [selectRestaurant, setRestaurant] = React.useState(null);
+  const [selectedItem, setItem] = React.useState(null);
+
+ function handleClickForCategory(category){
+  setCategory(category);
  }
- function restaurantClicked(restaurant){
-  selecTwo(restaurant);
+ function handleClickForRestaurant(restaurant){
+  setRestaurant(restaurant);
  }
+ function handleClickForItems(item){
+  setItem(item);
+ }
+var currentMenuItems = data.filter((restaurant) => {
+  return (restaurant.food_category == selectCategory && restaurant.restaurant == selectRestaurant)
+})
+
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
@@ -41,8 +52,8 @@ export function App() {
           {
             categories.map((category, idx) => {
               return (
-                <Chip key={idx} label={category} isActive = {category === selecOne}  iClick ={
-                () => {categoryClicked(category)}}
+                <Chip key={idx} label={category} isActive = {category === selectCategory}  iClick ={
+                () => {handleClickForCategory(category)}}
                 />)
             })
           }
@@ -64,8 +75,8 @@ export function App() {
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">{
               restaurants.map((restaurant, idx) => {
-                return(<Chip key={idx} label={restaurant} isActive={restaurant === selecOne} iClick ={
-                  () => {restaurantClicked(restaurant)}
+                return(<Chip key={idx} label={restaurant} isActive={restaurant === selectRestaurant} iClick ={
+                  () => {handleClickForRestaurant(restaurant)}
                 }/>)
               })
           }
@@ -79,11 +90,19 @@ export function App() {
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
+              {
+               currentMenuItems.map((items, idx) => {
+                  <Chip key={idx} label={items.item_name} isActive={items === selectedItem} iClick ={
+                   () => {handleClickForItems(items)}
+                 }/>
+                })
+              }
           </div>
 
           {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{
-          }</div>
+          <div className="NutritionFacts nutrition-facts">
+            {selectedItem ? <NutritionalLabel item = {selectedItem}/> : null}
+          </div>
         </div>
 
         <div className="data-sources">
